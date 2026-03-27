@@ -1,0 +1,25 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "9090:80"
+    networks:
+      - frontend
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+
+  db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ton_password_secret
+    networks:
+      - backend
+    volumes:
+      - db_data:/var/lib/mysql
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db_data:
