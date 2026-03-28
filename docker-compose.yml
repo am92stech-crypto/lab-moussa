@@ -2,7 +2,7 @@ services:
   web:
     image: nginx:latest
     ports:
-      - "9090:80"
+      - "80:80"
     networks:
       - frontend
     volumes:
