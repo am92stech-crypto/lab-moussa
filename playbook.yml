@@ -1,0 +1,23 @@
+---
+- name: "Configuration de mon Labo Moussa"
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: "Vérifier que le dossier du projet existe"
+      stat:
+        path: /projets/lab-moussa
+      register: folder_check
+
+    - name: "Afficher un message de succès si le dossier est là"
+      debug:
+        msg: "Le dossier /projets/lab-moussa est bien présent, Moussa !"
+      when: folder_check.stat.exists
+
+    - name: "S'assurer que Docker Compose est installé"
+      command: docker compose version
+      register: docker_check
+      changed_when: false
+
+    - name: "Afficher la version de Docker"
+      debug:
+        msg: "Docker est opérationnel : {{ docker_check.stdout }}"
